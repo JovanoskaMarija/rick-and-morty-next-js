@@ -1,0 +1,45 @@
+.listContainer {
+  background-color: var(--surface-50);
+  height: calc(100vh - 3.375rem);
+
+  .list {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .item {
+      padding: 1rem 0.3rem;
+    }
+  }
+
+  .errorMessage {
+    padding: 2rem 0.5rem;
+    color: var(--orange-700);
+    font-style: oblique;
+    font-weight: 500;
+  }
+
+  @media (max-width: 630px) {
+    .list {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      padding: 0 0.2rem;
+      .item {
+        width: 100%;
+        padding: 1rem 0;
+      }
+    }
+  }
+
+  @media (min-width: 630px) and(max-width: 861px) {
+    .list {
+      display: flex;
+      flex-direction: row;
+    }
+    .item {
+      width: 50%;
+    }
+  }
+}

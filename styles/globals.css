@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.back-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rems;
+}
