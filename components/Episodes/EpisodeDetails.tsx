@@ -1,18 +1,18 @@
-import { ILocationDetail } from "../../pages/api/location/type"
 import { useRouter } from "next/router"
+import { IEpisode } from "../../pages/api/episode/type"
 
 interface IDetails {
-  location: ILocationDetail
+  episode: IEpisode
 }
 
-function LocationDetails({ location }: IDetails) {
+function EpisodeDetails({ episode }: IDetails) {
   const router = useRouter()
 
   function handleBackBtnCLick() {
-    router.push("/location")
+    router.push("/episode")
   }
 
-  function handleResidentClick(id: string) {
+  function handleCharacterClick(id: string) {
     router.push("/character/" + id)
   }
   return (
@@ -39,38 +39,38 @@ function LocationDetails({ location }: IDetails) {
       <div className="flex flex-col justify-center m-8 md:m-auto lg:m-auto align-center md:w-1/2">
         <div>
           <span className="h-16 mb-4 text-2xl font-bold text-slate-50">
-            {location.name}
+            {episode.name}
           </span>
           <div>
             <div className="flex flex-col md:flex-row lg:flex-row items-baseline mb-0.5 text-base text-slate-50">
-              <span className="italic text-gray-300 ">Type </span>
+              <span className="italic text-gray-300 ">Episode </span>
               <span className="ml-2 font-medium text-slate-50">
-                {location.type}
+                {episode.episode}
               </span>
             </div>
 
             <div className="flex flex-col md:flex-row lg:flex-row items-baseline mb-0.5 text-base text-slate-50">
-              <span className="italic text-gray-300 ">Dimension </span>
+              <span className="italic text-gray-300 ">Air date </span>
               <span className="ml-2 font-medium text-slate-50">
-                {location.dimension}
+                {episode.air_date}
               </span>
             </div>
 
             <div className="flex flex-col md:flex-row lg:flex-row items-baseline mb-0.5 text-base text-slate-50">
-              <span className="italic text-gray-300 ">Created </span>
+              <span className="italic text-gray-300 ">Created at </span>
               <span className="ml-2 font-medium text-slate-50">
-                {new Date(location.created).toLocaleString()}
+                {new Date(episode.created).toLocaleDateString()}
               </span>
             </div>
 
-            {location.residents.length > 0 && (
+            {episode.characters.length > 0 && (
               <div className="flex flex-col md:flex-row lg:flex-row items-baseline mb-0.5 text-base text-slate-50">
                 <span className="italic text-gray-300 ">
-                  Residents ({location?.residents.length})
+                  Characters ({episode?.characters.length})
                 </span>
                 <div className="flex flex-wrap justify-start ml-2 text-slate-50">
-                  {location.residents.map((resident, index) => {
-                    const residentId = resident.replace(
+                  {episode.characters.map((character, index) => {
+                    const characterId = character.replace(
                       "https://rickandmortyapi.com/api/character/",
                       ""
                     )
@@ -78,11 +78,11 @@ function LocationDetails({ location }: IDetails) {
                     return (
                       <button
                         key={index}
-                        onClick={() => handleResidentClick(residentId)}
+                        onClick={() => handleCharacterClick(characterId)}
                         className="w-28"
                       >
-                        <span className="m-2 font-medium ">
-                          Resident {residentId}
+                        <span className="m-2 font-medium">
+                          Resident {characterId}
                         </span>
                       </button>
                     )
@@ -97,4 +97,4 @@ function LocationDetails({ location }: IDetails) {
   )
 }
 
-export default LocationDetails
+export default EpisodeDetails

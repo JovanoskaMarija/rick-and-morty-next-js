@@ -1,23 +1,27 @@
 import { GetServerSideProps } from "next/types";
-import instance from "../../api/instance";
 import LocationDetails from "../../components/Locations/LocationDetails";
+import { getLocation } from "../api/location";
+import { ILocationDetail } from "../api/location/type";
 
-function LocationDetailsPage(props: any) {
+interface ILocation {
+  location: ILocationDetail;
+}
+
+function LocationDetailsPage({ location }: ILocation) {
   return (
     <div>
-      <LocationDetails location={props.location} />
+      <LocationDetails location={location} />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locationId } = context.query;
-  const response = await instance.get(`location/${locationId}`);
-  const data = await response.data;
+  const response = await getLocation(locationId as string);
 
   return {
     props: {
-      location: data,
+      location: response,
     },
   };
 };

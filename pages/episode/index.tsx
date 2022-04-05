@@ -1,18 +1,18 @@
 import type { GetServerSideProps } from "next"
-import Card from "../../components/Locations/LocationCard"
+import Card from "../../components/Episodes/EpisodeCard"
 import { useEffect, useRef, useState } from "react"
-import { ILocation, ILocationsData } from "../api/location/type"
 import { useRouter } from "next/router"
-import { getLocationsList } from "../api/location"
+import { IEpisode, IEpisodesData } from "../api/episode/type"
+import { getEpisodesList } from "../api/episode"
 
 interface IList {
-  data: ILocationsData
+  data: IEpisodesData
 }
 
-function Locations({ data }: IList) {
+function Episodes({ data }: IList) {
   const router = useRouter()
-  const [locations, setLocations] = useState<ILocation[] | []>([])
-  const [newLocations, setNewLocations] = useState<ILocation[] | []>([])
+  const [episodes, setEpisodes] = useState<IEpisode[] | []>([])
+  const [newEpisodes, setNewEpisodes] = useState<IEpisode[] | []>([])
   const [error, setError] = useState<string>("")
 
   const [page, setPage] = useState<number>(
@@ -31,7 +31,7 @@ function Locations({ data }: IList) {
         setPage(nextPage)
         router.push(
           {
-            pathname: "/location",
+            pathname: "/episode",
             query: { page: nextPage },
           },
           undefined,
@@ -47,7 +47,7 @@ function Locations({ data }: IList) {
     }
     if (data) {
       setLastPage(data.info.pages)
-      setNewLocations(data.results)
+      setNewEpisodes(data.results)
     }
   }, [data])
 
@@ -67,13 +67,13 @@ function Locations({ data }: IList) {
   }, [lastElement])
 
   useEffect(() => {
-    if (newLocations.length) {
-      const newLocationsData = [...locations, ...newLocations]
+    if (newEpisodes.length) {
+      const newLocationsData = [...episodes, ...newEpisodes]
 
-      setLocations(newLocationsData)
-      setNewLocations([])
+      setEpisodes(newLocationsData)
+      setNewEpisodes([])
     }
-  }, [locations, newLocations])
+  }, [episodes, newEpisodes])
 
   if (error) {
     return (
@@ -85,15 +85,15 @@ function Locations({ data }: IList) {
 
   return (
     <div className="grid mx-auto 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-col-2 md:justify-center sm:grid-col-1">
-      {locations &&
-        locations.map((location, i) => {
-          return i === locations.length - 1 && lastPage && page !== lastPage ? (
-            <div key={`${location.id} - ${location.name}`} ref={setLastElement}>
-              <Card location={location} />
+      {episodes &&
+        episodes.map((episode, i) => {
+          return i === episodes.length - 1 && lastPage && page !== lastPage ? (
+            <div key={`${episode.id} - ${episode.name}`} ref={setLastElement}>
+              <Card episode={episode} />
             </div>
           ) : (
-            <div key={`${location.id} - ${location.name}`}>
-              <Card location={location} />
+            <div key={`${episode.id} - ${episode.name}`}>
+              <Card episode={episode} />
             </div>
           )
         })}
@@ -107,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     page = parseInt(context.query.page as string)
   }
 
-  const results = await getLocationsList(page)
+  const results = await getEpisodesList(page)
 
   return {
     props: {
@@ -116,4 +116,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-export default Locations
+export default Episodes

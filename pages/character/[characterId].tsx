@@ -1,25 +1,29 @@
-import { GetServerSideProps } from "next/types";
-import instance from "../../api/instance";
-import CharacterDetails from "../../components/Characters/CharacterDetails";
+import { GetServerSideProps } from "next/types"
+import CharacterDetails from "../../components/Characters/CharacterDetails"
+import { ICharacterDetail } from "../api/character/type"
+import { getCharacter } from "../api/character"
 
-function CharacterDetailsPage(props: any) {
+interface ICharacter {
+  character: ICharacterDetail
+}
+
+function CharacterDetailsPage({ character }: ICharacter) {
   return (
     <div>
-      <CharacterDetails character={props.character} />
+      <CharacterDetails character={character} />
     </div>
-  );
+  )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { characterId } = context.query;
-  const response = await instance.get(`character/${characterId}`);
-  const data = await response.data;
+  const { characterId } = context.query
+  const response = await getCharacter(characterId as string)
 
   return {
     props: {
-      character: data,
+      character: response,
     },
-  };
-};
+  }
+}
 
-export default CharacterDetailsPage;
+export default CharacterDetailsPage

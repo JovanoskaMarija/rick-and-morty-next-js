@@ -1,5 +1,5 @@
 export interface ICharactersData {
-  results: ICharacter[];
+  results: ICharacterData[];
   info: {
     pages: number;
     next: string | null;
@@ -28,6 +28,7 @@ export interface ICharacter {
   gender: string;
   species: string;
   status: string;
+  origin: {};
   episodes: number;
 }
 
@@ -48,34 +49,6 @@ export interface ICharacterDetail {
   };
   image: string;
   episode: string[];
-  url: string;
-  created: string;
-}
-
-export interface ILocationsData {
-  results: ILocation[];
-  info: {
-    pages: number;
-    next: string | null;
-  };
-}
-
-export interface ILocation {
-  id: number;
-  name: string;
-  type: string;
-  dimension: string;
-  residents: string[];
-  url: string;
-  created: string;
-}
-
-export interface ILocationDetail {
-  id: number;
-  name: string;
-  type: string;
-  dimension: string;
-  residents: string[];
   url: string;
   created: string;
 }

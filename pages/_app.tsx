@@ -1,15 +1,12 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import "primereact/resources/themes/saga-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
 import { Header } from "../components/Header/Header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="p-d-flex p-flex-column">
+    <div className="flex flex-col min-h-screen bg-container">
       <Header />
-      <div style={{ padding: "3.375rem 0 0 0" }}>
+      <div className="pt-14">
         <Component {...pageProps} />
       </div>
     </div>
