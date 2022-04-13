@@ -1,23 +1,23 @@
-import { useState } from "react"
-import { useRouter } from "next/router"
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export function Header() {
-  const router = useRouter()
-  const [showNav, setShowNav] = useState(false)
+  const router = useRouter();
+  const [showNav, setShowNav] = useState(false);
 
   function viewCharacterList() {
-    setShowNav(false)
-    router.push("/")
+    setShowNav(false);
+    router.push("/");
   }
 
   function viewLocationList() {
-    router.push("/location")
-    setShowNav(false)
+    router.push("/location");
+    setShowNav(false);
   }
 
   function viewEpisodeList() {
-    router.push("/episode")
-    setShowNav(false)
+    router.push("/episode");
+    setShowNav(false);
   }
 
   return (
@@ -27,7 +27,7 @@ export function Header() {
         className="inline-flex items-center p-0 mr-4 font-serif font-bold lg:text-xl"
       >
         <button onClick={viewCharacterList}>
-          <img src="/logo3.png" alt="logo" className="h-12 p-1" />
+          <img src="/logo3.png" alt="logo" className="h-12 p-1 pl-2" />
         </button>
       </div>
       <button
@@ -85,5 +85,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
